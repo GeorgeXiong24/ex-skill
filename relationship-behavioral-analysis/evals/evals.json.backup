@@ -1,0 +1,58 @@
+{
+  "skill_name": "relationship-behavioral-analysis",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "I want to analyze my ex-girlfriend's behavior from our conversations. Here's a text file with our chat history (conversation.txt) and a description file about her (description.txt). Please analyze her personality, tone, and relationship patterns. Save the profile for future use.",
+      "expected_output": "A structured behavioral analysis report with sections: Executive Summary, Linguistic Style, Behavioral Patterns, Core Personality Traits, Relationship Dynamics, Data-Driven Insights, and Profile Storage Information. Profile saved as JSON in ~/.claude/relationship_analysis/profiles/.",
+      "files": [
+        {
+          "path": "conversation.txt",
+          "content": "[2023-10-15 14:30] Ex: Hey, how was your day?\n[2023-10-15 14:32] Me: It was busy, but okay. Yours?\n[2023-10-15 14:33] Ex: Pretty good! Just finished work early 😊\n[2023-10-15 14:35] Me: Nice! Any plans for the weekend?\n[2023-10-15 14:36] Ex: Thinking about hiking if weather permits! You should come!\n[2023-10-15 14:40] Me: Maybe, let me check my schedule.\n[2023-10-15 14:42] Ex: Okay no pressure! Just thought it'd be fun 💖\n\n[2023-10-20 19:15] Ex: Had a rough day today...\n[2023-10-20 19:20] Me: What happened?\n[2023-10-20 19:22] Ex: Just work stress. Everyone expects so much.\n[2023-10-20 19:25] Me: Sorry to hear that. Want to talk about it?\n[2023-10-20 19:30] Ex: It's okay, I'll manage. Thanks for asking though ❤️"
+        },
+        {
+          "path": "description.txt",
+          "content": "My ex-girlfriend Sarah: She's generally cheerful and optimistic. Loves outdoor activities. Sometimes gets stressed about work but doesn't like to burden others. She uses a lot of emojis in texts. We dated for 2 years. She was usually the one planning dates and initiating conversations. When we had disagreements, she would often suggest 'taking a break' to cool down rather than arguing."
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "Can you analyze these conversation screenshots? I have two photos of our chat and a text description of her personality. Extract the text and analyze her behavioral patterns.",
+      "expected_output": "Report acknowledging OCR limitations (if no OCR tool available) or extracted text analysis. Structured report with same sections as eval 1. Profile saved.",
+      "files": [
+        {
+          "path": "photo1.jpg",
+          "content": "(Note: This is a simulated image file - actual test would use a real image. For this eval, we'll treat it as text.)\nImage contains: 'Hey! Miss you 😘 When can I see you?'\n'Tomorrow maybe? I have meetings till 5.'\n'Okay! Let me know 💕'"
+        },
+        {
+          "path": "description.txt",
+          "content": "She's very affectionate in texts, uses heart emojis frequently. Sometimes impatient when waiting for responses. Likes to make plans spontaneously."
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "I need a behavioral analysis of my ex from multiple conversation files. Here are three text files with different periods of our relationship. Also my personal notes about her traits. Give me a comprehensive profile.",
+      "expected_output": "Analysis showing evolution over time across multiple files. Report should note changes in linguistic style or behavior across periods. Profile saved.",
+      "files": [
+        {
+          "path": "early_chats.txt",
+          "content": "[Month 1] Ex: Hi! I had a great time last night 🌟\nMe: Me too! Let's do it again soon.\nEx: Definitely! You're so fun to talk to 😊"
+        },
+        {
+          "path": "mid_relationship.txt",
+          "content": "[Month 6] Ex: Can you pick up groceries on your way home?\nMe: Sure, what do we need?\nEx: Milk, eggs, and maybe some snacks 🍫\nMe: Got it.\nEx: Thanks love ❤️"
+        },
+        {
+          "path": "later_chats.txt",
+          "content": "[Month 12] Ex: We need to talk about our plans.\nMe: Okay, what's up?\nEx: I feel like we're not connecting like we used to.\nMe: I see. Want to discuss tonight?\nEx: Yes, but let's both think about what we want first."
+        },
+        {
+          "path": "traits.txt",
+          "content": "She was very enthusiastic at first, then became more practical. Started using fewer emojis over time. Became more direct about issues later in relationship."
+        }
+      ]
+    }
+  ]
+}
