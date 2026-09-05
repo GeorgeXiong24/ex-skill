@@ -1,4 +1,4 @@
-[personality_profile.template.md](https://github.com/user-attachments/files/31866014/personality_profile.template.md)---
+---
 schema_version: "1.0"
 profile_type: "personality-speech-analysis"
 subject_alias: "<alias>"
