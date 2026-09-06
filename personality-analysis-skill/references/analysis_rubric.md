@@ -1,4 +1,5 @@
-[analysis_rubric.md](https://github.com/user-attachments/files/31866776/analysis_rubric.md)# Analysis Rubric
+[analysis_rubric.md](https://github.com/user-attachments/files/31876194/analysis_rubric.md)
+# Analysis Rubric
 
 Scoring guide for producing consistent, evidence-backed personality, emotional, and psychological metrics and linguistic weights.
 
@@ -174,3 +175,38 @@ Flag a moment as "significant" (and add it to the memory moments list) when any 
 - **Emotional spike**: unusual intensity, a sudden tone shift, or unusual latency / message length.
 - **Callback**: the subject references it again later (inside jokes, lingering grievances, repeated memories).
 - **Residual effect**: it changes the subject's subsequent voice, warmth, distance, or expectations.
+
+## Quantitative communication metrics anchors
+
+Compute these from the subject's own substantive text messages only. Exclude `[Audio]`, `[Sticker]`, and
+pure-emoji markers from length averages (but count them when measuring message frequency).
+
+### Message length
+- Count characters (CJK, Latin, digits, and emoji each count as one glyph).
+- Report mean, median, min, max, and the % of messages ≤8 chars and ≤12 chars.
+- Interpret: median ≤8 chars and ≥60% ≤8 chars → **terse / fragmentary**; median 9–15 → **moderate**;
+  median >15 → **verbose / long-form**.
+
+### Message frequency & cadence
+- Messages per turn = how many messages the subject sends before the other side replies.
+- Burst-size distribution: count the frequency of 1-, 2-, 3-, … message bursts.
+- Single-message-turn % = share of turns that contain exactly one message.
+- Cadence: reply latency when engaged vs disengaged; note any affect-marker scaling rule (e.g. laughter
+  length, emoji stacking) that encodes intensity without adding words.
+
+### Reply length by input type
+Always express as a **message-count range** plus a **total-character range**, and back each row with one
+concrete input → reply pair. Example anchoring (adjust to the actual subject):
+
+| Input type | Expected messages | Expected total chars |
+|-----------|-------------------|----------------------|
+| greeting / check-in | 1–2 | ≤12 |
+| direct question | 1–3 | ≤20 |
+| statement / tease | 1–2 | ≤8 |
+| comfort request | 1–2 | ≤12 |
+| logistics / scheduling | 1–3 | ≤20 |
+| serious / planning | 1 | 15–40 |
+
+A reply that exceeds the subject's recorded upper bound for that input type is an over-length failure the
+imitation skill must reject.
+
