@@ -1,3 +1,4 @@
+[SKILL.md](https://github.com/user-attachments/files/31876165/SKILL.md)
 ---
 name: "personality-analysis-skill"
 description: "Builds a machine-readable profile of an ex-partner's personality, emotions, and speaking style from uploaded chat logs, documents, and images. Invoke when the user uploads relationship materials."
@@ -168,6 +169,28 @@ profile's "memory": it lets a downstream AI (or the user) recall the story and r
 - **Preserve the subject's perspective**: reconstruct how the subject likely experienced the event from *their* side, not just the user's account. Note when the material only shows one side.
 - **Do not force a narrative**: if materials are fragmentary, record only the moments that exist and mark gaps explicitly rather than inventing a story.
 
+### 4.12 Quantitative communication metrics (data-backed benchmarks)
+
+Produce **numeric benchmarks** that a downstream imitation skill can enforce directly. Compute them from the
+subject's own turns only and attach the raw counts so every number is auditable:
+
+- **Message length**: mean, median, min, and max character counts across all substantive text messages;
+  report the share that is ≤8 chars and ≤12 chars, and a length histogram (1–4 / 5–8 / 9–12 / 13–16 / 17–20 / 21+).
+- **Message frequency**: messages per turn (mean / median), the burst-size distribution (how many back-to-back
+  messages the subject sends before the other side replies), and the percentage of turns that are a single message.
+- **Reply length by input type**: for each recurring type of incoming message — greeting / check-in, direct
+  question, statement or tease, comfort request, logistics / scheduling question, serious / planning topic —
+  record the subject's typical reply size as an **expected message-count range** and an **expected total-character
+  range**, with one concrete input → reply example. This is the key guardrail against over-length (or under-length)
+  imitation.
+- **Tone modulation**: for each tonal context, record the intensity (0–1) together with the typical message length
+  and emoji/sticker density that accompany it (e.g. teasing = short + playful, comforting = short + gentle).
+- **Cadence**: reply latency when engaged vs disengaged, and the scaling rules for affect markers (laughter length,
+  emoji stacking) that encode intensity **without adding words**.
+
+Every number must be derived from the material, never from priors. If the dataset is too small to compute a metric
+reliably, mark it as an estimate with its sample size, or set it to `null`.
+
 ## 5. Output Requirements
 
 - Write the profile to a single `.md` file that follows `templates/personality_profile.template.md` exactly.
@@ -176,6 +199,7 @@ profile's "memory": it lets a downstream AI (or the user) recall the story and r
 - Include annotated sample excerpts in the form: quote → observation → what it reveals.
 - Include a dedicated **Deep Interpretation & Synthesis** section and an **Emotional Profile** section.
 - Include a dedicated **Memory Moments & Significant Events** section that reconstructs what happened and the subject's detailed, event-level emotions.
+- Include a **Quantitative Communication Metrics** block (Section 3.8 + JSON `communication_metrics`) with data-backed benchmarks for message length, message frequency, reply length by input type, tone modulation, and cadence.
 
 ## 6. Error Handling
 
@@ -192,7 +216,7 @@ Apply these rules before and during analysis:
 1. Inventory and classify every uploaded file.
 2. Parse and normalize text; OCR images; extract document text.
 3. Separate subject turns from user turns.
-4. Apply **all** analysis layers (Section 4.1–4.9), citing evidence.
+4. Apply **all** analysis layers (Section 4.1–4.12), citing evidence.
 5. Score personality and emotional dimensions using the rubric.
 6. Extract significant memory moments and reconstruct event-level emotions (Section 4.11).
 7. Synthesize across sources and produce the deep interpretation layer (Section 4.10).
@@ -227,7 +251,7 @@ JSON contract must remain stable so downstream systems can parse the profile.
 
 ### A.2 Required markdown sections (headings must match)
 
-1 Executive Summary · 2 Core Personality Metrics · 3 Communication Style · 4 Emotional Profile ·
+1 Executive Summary · 2 Core Personality Metrics · 3 Communication Style (incl. 3.8 Quantitative Communication Metrics) · 4 Emotional Profile ·
 5 Tonal Characteristics by Context · 6 Mentality & Psychology · 7 Thematic Preferences ·
 8 Response Latency & Engagement Dynamics · 9 Idioms, Recurring Phrases & Linguistic Quirks ·
 10 Relationship Dynamics & Temporal Evolution · 11 Memory Moments & Significant Events ·
@@ -236,10 +260,10 @@ JSON contract must remain stable so downstream systems can parse the profile.
 
 ### A.3 Required top-level JSON keys
 
-`subject`, `confidence`, `status`, `personality_metrics`, `communication_style`, `emotional_profile`,
-`tones`, `mentality`, `themes`, `response_latency`, `linguistic_features`, `relationship_dynamics`,
-`temporal_evolution`, `memory_moments`, `sample_excerpts`, `interpretation`, `simulation_guidance`,
-`limitations`.
+`subject`, `confidence`, `status`, `personality_metrics`, `communication_style`, `communication_metrics`,
+`emotional_profile`, `tones`, `mentality`, `themes`, `response_latency`, `linguistic_features`,
+`relationship_dynamics`, `temporal_evolution`, `memory_moments`, `sample_excerpts`, `interpretation`,
+`simulation_guidance`, `limitations`.
 
 ## Appendix B — Minimal Scoring Rubric (fallback)
 
@@ -268,3 +292,11 @@ Use this only if `references/analysis_rubric.md` is unavailable.
 ### B.4 Linguistic feature weights
 
 - 0.9–1.0: signature markers; 0.6–0.8: frequent and distinctive; 0.3–0.5: occasional but characteristic; 0.1–0.2: rare.
+
+### B.5 Quantitative communication metrics (fallback anchors)
+
+- Compute all metrics from the subject's own substantive text messages; exclude `[Audio]`, `[Sticker]`, and pure-emoji markers from length averages.
+- **Terse** = median message length ≤8 chars and ≥60% of messages ≤8 chars; **verbose** = median >15 chars.
+- **Reply length by input type** must always be expressed as a message-count range plus a total-character range, backed by at least one concrete input → reply pair.
+- **Message frequency** = mean/median messages per turn and the burst-size distribution; a "single-message turn" is a turn with exactly one message before the other side replies.
+- **Cadence** = reply latency when engaged vs disengaged, plus any affect-marker scaling rule (e.g. laughter length encodes intensity).
