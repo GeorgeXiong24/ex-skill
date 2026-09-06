@@ -31,8 +31,7 @@ imitation skill  ──►  以该对象的口吻生成的消息
 |-------|---------|-------|--------|
 | `personality-analysis-skill` | 深度分析前任的个性、情绪、心理和说话方式 | 聊天记录、`.txt`/`.pdf`/`.docx`、图片、聊天导出 | 一份 `<subject>_personality_profile.md` |
 | `imitation-skill-generator` | 将个性画像转化为可用的模仿技能 | 一份个性画像 `.md` | `imitation-<alias>/` 技能目录 |
-| `imitation-skill` | 针对演示对象（Joanna）预构建的模仿技能 | 一段对话提示 | 以该对象口吻生成的消息 |
-| `imitation-joanna` | 生成器基于 Joanna 画像生成的演示产物 | 一段对话提示 | 以 Joanna 口吻生成的消息 |
+| `imitation-skill` | 针对演示对象预构建的模仿技能 | 一段对话提示 | 以该对象口吻生成的消息 |
 
 ### personality-analysis-skill
 
