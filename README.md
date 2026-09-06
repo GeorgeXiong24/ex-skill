@@ -36,7 +36,6 @@ imitation skill  ──►  messages in the subject's voice
 | `personality-analysis-skill` | Deep analysis of a former partner's personality, emotions, mentality, and speech | Chat logs, `.txt`/`.pdf`/`.docx`, images, chat exports | A single `<subject>_personality_profile.md` |
 | `imitation-skill-generator` | Turns a personality profile into a working imitation skill | A personality profile `.md` | `imitation-<alias>/` skill directory |
 | `imitation-skill` | Pre-built imitation skill for the demo subject (Joanna) | A conversation prompt | Messages in the subject's voice |
-| `imitation-joanna` | Generated demo output produced by the generator from the Joanna profile | A conversation prompt | Messages in Joanna's voice |
 
 ### personality-analysis-skill
 
