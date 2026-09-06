@@ -1,3 +1,4 @@
+[personality_profile.template.md](https://github.com/user-attachments/files/31876208/personality_profile.template.md)
 ---
 schema_version: "1.0"
 profile_type: "personality-speech-analysis"
@@ -54,6 +55,19 @@ status: "complete"
 <!-- Ellipses, stacked punctuation, tildes, full/half-width, all-caps, line breaks. -->
 ### 3.7 Emoji, sticker & audio usage
 <!-- Frequency, categories, emotional function; when audio replaces text. -->
+
+### 3.8 Quantitative Communication Metrics (benchmarks)
+<!-- Data-backed numbers a downstream imitation skill must enforce. Compute from the subject's own turns. -->
+#### 3.8.1 Message length
+<!-- mean / median / min / max chars; % ≤8 chars; % ≤12 chars; length histogram (1-4 / 5-8 / 9-12 / 13-16 / 17-20 / 21+). -->
+#### 3.8.2 Message frequency
+<!-- messages per turn (mean / median); burst-size distribution; % single-message turns. -->
+#### 3.8.3 Reply length by input type
+| Input type | Expected messages | Expected total chars | Example input → reply |
+|-----------|-------------------|----------------------|----------------------|
+|  | 1–3 | ≤20 |  |
+#### 3.8.4 Tone modulation & cadence
+<!-- Per tonal context: intensity, typical message length, emoji/sticker density. Reply latency engaged vs disengaged; affect-marker scaling rules. -->
 
 ## 4. Emotional Profile
 ### 4.1 Emotional range & dominant emotions
@@ -157,6 +171,42 @@ status: "complete"
     "slang": [],
     "punctuation_capitalization": [],
     "emoji_sticker_audio_usage": ""
+  },
+  "communication_metrics": {
+    "message_length": {
+      "mean_chars": 0.0,
+      "median_chars": 0,
+      "min_chars": 0,
+      "max_chars": 0,
+      "pct_le_8_chars": 0.0,
+      "pct_le_12_chars": 0.0,
+      "length_buckets": {}
+    },
+    "message_frequency": {
+      "messages_per_turn_mean": 0.0,
+      "messages_per_turn_median": 0,
+      "single_message_turn_pct": 0.0,
+      "burst_distribution": {}
+    },
+    "reply_length_by_input_type": [
+      {
+        "input_type": "",
+        "expected_messages_min": 0,
+        "expected_messages_max": 0,
+        "expected_total_chars_max": 0,
+        "example_input": "",
+        "example_reply": ""
+      }
+    ],
+    "tone_modulation": [
+      { "context": "", "intensity": 0.0, "typical_length_chars": 0, "emoji_density": "" }
+    ],
+    "cadence": {
+      "reply_latency_engaged": "",
+      "reply_latency_disengaged": "",
+      "laughter_length_scale": "",
+      "voice_note_when": ""
+    }
   },
   "emotional_profile": {
     "range": "",
