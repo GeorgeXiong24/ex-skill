@@ -1,4 +1,3 @@
-[SKILL.md](https://github.com/user-attachments/files/31876165/SKILL.md)
 ---
 name: "personality-analysis-skill"
 description: "Builds a machine-readable profile of an ex-partner's personality, emotions, and speaking style from uploaded chat logs, documents, and images. Invoke when the user uploads relationship materials."
@@ -60,6 +59,8 @@ Accept and analyze any combination of the following:
 
 Images may contain chat screenshots (OCR them) or visual context (scene, objects, mood). A single
 upload may mix several types; a single file may also mix text with inline attachment markers.
+For images, also extract the capture date from metadata and (if the AI is vision-capable) analyze
+what each image depicts; see Section 3.5.
 
 ## 3. Input Parsing Rules
 
@@ -86,6 +87,23 @@ Do not discard attachments. Normalize them to placeholders and interpret their m
 ### 3.4 Multilingual content
 - Handle mixed-language text (e.g. Chinese + English) without forcing one language.
 - Preserve original phrasing in excerpts; add translations only when genuinely helpful.
+
+### 3.5 Image metadata & visual content
+For each image file, do the following in addition to OCR of any on-screen text:
+
+- **Capture date**: extract the capture date/time from the image's metadata (e.g. EXIF
+  `DateTimeOriginal`), falling back to the file's last-modified timestamp only when EXIF is absent.
+  Use this date as a **supplementary** timeline signal, never the primary one. Cross-reference it with
+  any textual date in the material: **textual descriptions and chat timestamps take priority**; the
+  image date is used only to fill gaps. Image metadata is often unreliable (wrong device clock, edited
+  or re-saved copies, screenshots, or re-downloads that reset timestamps), so when the image date
+  conflicts with the text, prefer the text and, where only the image date is available, record it but
+  mark it low-confidence.
+- **Visual content analysis**: if the current AI has image-recognition (vision) capability, analyze what
+  each image contains — scene/setting, people, objects, activities, and apparent mood — and treat it as
+  evidence for the subject's interests, context, and emotional state. If the AI has **no** vision
+  capability, skip this step entirely: do not guess or fabricate image content; rely only on OCR of any
+  text in the image and on any textual description the user provides.
 
 ## 4. Deep Analysis Methodology
 
@@ -214,7 +232,7 @@ Apply these rules before and during analysis:
 ## 7. Workflow
 
 1. Inventory and classify every uploaded file.
-2. Parse and normalize text; OCR images; extract document text.
+2. Parse and normalize text; OCR images; extract document text; extract image capture dates and (if the AI is vision-capable) analyze image content.
 3. Separate subject turns from user turns.
 4. Apply **all** analysis layers (Section 4.1–4.12), citing evidence.
 5. Score personality and emotional dimensions using the rubric.
