@@ -1,4 +1,3 @@
-[personality_profile.template.md](https://github.com/user-attachments/files/31876208/personality_profile.template.md)
 ---
 schema_version: "1.0"
 profile_type: "personality-speech-analysis"

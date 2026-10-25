@@ -1,4 +1,3 @@
-[analysis_rubric.md](https://github.com/user-attachments/files/31876194/analysis_rubric.md)
 # Analysis Rubric
 
 Scoring guide for producing consistent, evidence-backed personality, emotional, and psychological metrics and linguistic weights.

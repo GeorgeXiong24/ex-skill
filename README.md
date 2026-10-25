@@ -35,7 +35,8 @@ imitation skill  ──►  messages in the subject's voice
 |-------|---------|-------|--------|
 | `personality-analysis-skill` | Deep analysis of a former partner's personality, emotions, mentality, and speech | Chat logs, `.txt`/`.pdf`/`.docx`, images, chat exports | A single `<subject>_personality_profile.md` |
 | `imitation-skill-generator` | Turns a personality profile into a working imitation skill | A personality profile `.md` | `imitation-<alias>/` skill directory |
-| `imitation-skill` | Pre-built imitation skill for the demo subject | A conversation prompt | Messages in the subject's voice |
+| `imitation-skill` | Pre-built imitation skill for a demo subject | A conversation prompt | Messages in the subject's voice |
+| `imitation-<alias>` | Generated demo output produced by the generator from a sample profile | A conversation prompt | Messages in the subject's voice |
 
 ### personality-analysis-skill
 
@@ -51,18 +52,17 @@ imitation skill  ──►  messages in the subject's voice
 - Validates the input profile schema.
 - Extracts identity, top traits, tones, signature phrases, and simulation guidance.
 - Fills a bundled template and bundles the profile as the single source of truth.
-- Emits a validated, self-contained imitation skill under `.trae/skills/`.
+- Emits a validated, self-contained imitation skill under `skills/`.
 
 ## Directory layout
 
 ```
 ex-skill/
-├── .trae/
-│   └── skills/                        # registered skills (framework location)
-│       ├── personality-analysis-skill/
-│       ├── imitation-skill-generator/
-│       ├── imitation-skill/
-│       └── imitation-joanna/
+├── skills/                            # registered skills
+│   ├── personality-analysis-skill/
+│   ├── imitation-skill-generator/
+│   ├── imitation-skill/
+│   └── imitation-<alias>/
 ├── evidence_list/                     # raw private evidence (local only)
 ├── personality_analysis_skill/        # authoring copy of the analysis skill
 ├── imitation_skill/                   # authoring copy of the imitation skill
@@ -78,7 +78,7 @@ templates, and do not depend on network access, databases, or files outside thei
 There is no compilation step — these are declarative Markdown skills loaded by the skill framework.
 
 1. Clone this repository.
-2. Place each skill directory under the framework's skill location: `.trae/skills/<skill-name>/`.
+2. Place each skill directory under `skills/<skill-name>/`.
    Each directory must contain a `SKILL.md` with a valid `name` and `description` frontmatter.
 3. Keep the bundled resources co-located with each skill (for example
    `personality-analysis-skill/references/analysis_rubric.md` and
@@ -89,7 +89,7 @@ There is no compilation step — these are declarative Markdown skills loaded by
 A skill is valid when it matches the `skill-creator` layout:
 
 ```
-.trae/skills/<skill-name>/
+skills/<skill-name>/
 ├── SKILL.md
 └── <bundled resources>
 ```

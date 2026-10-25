@@ -32,6 +32,7 @@ imitation skill  ──►  以该对象的口吻生成的消息
 | `personality-analysis-skill` | 深度分析前任的个性、情绪、心理和说话方式 | 聊天记录、`.txt`/`.pdf`/`.docx`、图片、聊天导出 | 一份 `<subject>_personality_profile.md` |
 | `imitation-skill-generator` | 将个性画像转化为可用的模仿技能 | 一份个性画像 `.md` | `imitation-<alias>/` 技能目录 |
 | `imitation-skill` | 针对演示对象预构建的模仿技能 | 一段对话提示 | 以该对象口吻生成的消息 |
+| `imitation-<alias>` | 生成器基于示例画像生成的演示产物 | 一段对话提示 | 以该对象口吻生成的消息 |
 
 ### personality-analysis-skill
 
@@ -46,18 +47,17 @@ imitation skill  ──►  以该对象的口吻生成的消息
 - 校验输入画像的 schema。
 - 提取身份、核心特质、语气、标志性短语和模拟指引。
 - 填充内置模板，并将画像作为唯一事实来源一并打包。
-- 在 `.trae/skills/` 下输出一个经过校验、自包含的模仿技能。
+- 在 `skills/` 下输出一个经过校验、自包含的模仿技能。
 
 ## 目录结构
 
 ```
 ex-skill/
-├── .trae/
-│   └── skills/                        # 已注册的技能（框架所在位置）
-│       ├── personality-analysis-skill/
-│       ├── imitation-skill-generator/
-│       ├── imitation-skill/
-│       └── imitation-joanna/
+├── skills/                            # 已注册的技能
+│   ├── personality-analysis-skill/
+│   ├── imitation-skill-generator/
+│   ├── imitation-skill/
+│   └── imitation-<alias>/
 ├── evidence_list/                     # 原始隐私证据（仅本地）
 ├── personality_analysis_skill/        # 分析技能的编写副本
 ├── imitation_skill/                   # 模仿技能的编写副本
@@ -73,7 +73,7 @@ ex-skill/
 这里没有编译步骤 —— 这些是由技能框架加载的声明式 Markdown 技能。
 
 1. 克隆本仓库。
-2. 将每个技能目录放到框架的技能位置：`.trae/skills/<skill-name>/`。
+2. 将每个技能目录放到 `skills/<skill-name>/`。
    每个目录都必须包含一个 `SKILL.md`，其 frontmatter 中需有合法的 `name` 和 `description`。
 3. 让捆绑资源与每个技能保持在同一目录下（例如
    `personality-analysis-skill/references/analysis_rubric.md` 和
@@ -84,7 +84,7 @@ ex-skill/
 一个技能只要符合 `skill-creator` 的目录结构即视为合法：
 
 ```
-.trae/skills/<skill-name>/
+skills/<skill-name>/
 ├── SKILL.md
 └── <bundled resources>
 ```

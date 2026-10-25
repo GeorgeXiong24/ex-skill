@@ -10,10 +10,10 @@ documents the structural, self-containment, privacy, and end-to-end generation c
 
 | Path | Purpose |
 |------|---------|
-| `.trae/skills/imitation-skill-generator/SKILL.md` | The generator skill |
-| `.trae/skills/imitation-skill-generator/templates/imitation-skill.template.md` | Bundled generation template |
-| `.trae/skills/imitation-joanna/SKILL.md` | Generated imitation skill (from the Joanna profile) |
-| `.trae/skills/imitation-joanna/references/joanna_personality_profile.md` | Bundled profile (single source of truth) |
+| `skills/imitation-skill-generator/SKILL.md` | The generator skill |
+| `skills/imitation-skill-generator/templates/imitation-skill.template.md` | Bundled generation template |
+| `skills/imitation-<alias>/SKILL.md` | Generated imitation skill (from a sample profile) |
+| `skills/imitation-<alias>/references/<alias>_personality_profile.md` | Bundled profile (single source of truth) |
 
 ## 3. Self-containment & precondition audit
 
@@ -21,7 +21,7 @@ documents the structural, self-containment, privacy, and end-to-end generation c
 |--------------|--------|
 | Requires network / remote service / database / auth | Removed — runs fully locally |
 | Requires files outside the skill directory | Removed — template is bundled; fallback inline in Appendix A/B |
-| Uploads or publishes private source | Prevented — Section 0.3 mandates local-only writes under `.trae/skills/` |
+| Uploads or publishes private source | Prevented — Section 0.3 mandates local-only writes under `skills/` |
 | Depends on the old source folders (`imitation_skill`, `skill_prompts`, `evidence_list`) | Removed — no references found |
 
 ## 4. Test results
@@ -38,16 +38,16 @@ documents the structural, self-containment, privacy, and end-to-end generation c
 
 ### 4.3 End-to-end generation run — PASS
 
-Executed the generator workflow against `imitation_skill/references/joanna_personality_profile.md`:
+Executed the generator workflow against a sample personality profile:
 
 - Extracted identity, top traits, tones, signature phrases, and simulation guidance.
-- Produced `.trae/skills/imitation-joanna/SKILL.md`.
-- Bundled the profile as `.trae/skills/imitation-joanna/references/joanna_personality_profile.md`.
+- Produced `skills/imitation-<alias>/SKILL.md`.
+- Bundled the profile as `skills/imitation-<alias>/references/<alias>_personality_profile.md`.
 
 ### 4.4 Generated skill validation — PASS
 
-- Frontmatter valid: `name: "imitation-joanna"` matches directory; `description` = 180 chars (< 200) with "what" and "when".
-- `SKILL.md` references only the bundled profile (`references/joanna_personality_profile.md`).
+- Frontmatter valid: `name: "imitation-<alias>"` matches directory; `description` = 180 chars (< 200) with "what" and "when".
+- `SKILL.md` references only the bundled profile (`references/<alias>_personality_profile.md`).
 - Bundled profile present and non-empty.
 
 ### 4.5 Privacy & no-external-reference check — PASS

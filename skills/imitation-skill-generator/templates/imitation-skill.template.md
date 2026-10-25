@@ -1,4 +1,3 @@
-[imitation-skill.template.md](https://github.com/user-attachments/files/31876182/imitation-skill.template.md)
 ---
 name: "{{SKILL_NAME}}"
 description: "{{DESCRIPTION}}"

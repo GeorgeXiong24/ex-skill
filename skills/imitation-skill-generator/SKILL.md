@@ -1,7 +1,7 @@
-[SKILL.md](https://github.com/user-attachments/files/31866491/SKILL.md)---
-name: "imitation-skill-generator"
-description: "Generates a production-ready imitation-skill from a personality-analysis-skill .md profile. Invoke when the user has a personality profile and wants to create an imitation skill."
----
+# imitation-skill-generator
+
+> Generates a production-ready imitation-skill from a personality-analysis-skill .md profile. Invoke when the user has a personality profile and wants to create an imitation skill.
+
 
 # Imitation Skill Generator
 
@@ -36,7 +36,7 @@ the user provides; everything else needed to generate the imitation skill ships 
 
 This skill operates entirely locally. It must never upload, publish, push, or otherwise transmit the
 subject's profile or the generated imitation skill to any public repository, platform, or remote service.
-Generated files are written only to the local filesystem under `.trae/skills/`.
+Generated files are written only to the local filesystem under `skills/`.
 
 ## 1. Purpose & Scope
 
@@ -69,10 +69,10 @@ available, mark the rest as gaps).
 
 ### 2.3 Required top-level JSON keys
 
-`subject`, `confidence`, `status`, `personality_metrics`, `communication_style`, `emotional_profile`,
-`tones`, `mentality`, `themes`, `response_latency`, `linguistic_features`, `relationship_dynamics`,
-`temporal_evolution`, `memory_moments`, `sample_excerpts`, `interpretation`, `simulation_guidance`,
-`limitations`.
+`subject`, `confidence`, `status`, `personality_metrics`, `communication_style`, `communication_metrics`,
+`emotional_profile`, `tones`, `mentality`, `themes`, `response_latency`, `linguistic_features`,
+`relationship_dynamics`, `temporal_evolution`, `memory_moments`, `sample_excerpts`, `interpretation`,
+`simulation_guidance`, `limitations`.
 
 ## 3. Generation Workflow
 
@@ -82,7 +82,7 @@ available, mark the rest as gaps).
 4. **Load the template** from `templates/imitation-skill.template.md` (or Appendix A fallback).
 5. **Fill the template variables** using the mapping in Section 4.2.
 6. **Bundle the profile** as `references/<alias>_personality_profile.md` in the generated skill directory.
-7. **Write the generated skill** to `.trae/skills/<skill-name>/` with `SKILL.md` and the bundled reference.
+7. **Write the generated skill** to `skills/<skill-name>/` with `SKILL.md` and the bundled reference.
 8. **Validate** the generated skill using the checklist in Section 7; fix any failures.
 
 ## 4. Template Variables
@@ -96,6 +96,7 @@ The `{{SUBJECT_SNAPSHOT}}` block summarizes, from the profile:
 - Dominant tones by context (`tones`).
 - Top recurring phrases (`linguistic_features`, highest weights).
 - `simulation_guidance.do`, `simulation_guidance.avoid`, and `simulation_guidance.voice_rules`.
+- Response length budget: message-length stats and `communication_metrics.reply_length_by_input_type`.
 
 Every line in the snapshot must be traceable to the profile; do not invent details.
 
@@ -115,7 +116,7 @@ Every line in the snapshot must be traceable to the profile; do not invent detai
 Generated skill directory:
 
 ```
-.trae/skills/<skill-name>/
+skills/<skill-name>/
 ├── SKILL.md
 └── references/
     └── <alias>_personality_profile.md
@@ -135,7 +136,7 @@ generated skill directory.
 
 ## 7. Validation Checklist (generated skill)
 
-- [ ] Directory exists at `.trae/skills/<skill-name>/`.
+- [ ] Directory exists at `skills/<skill-name>/`.
 - [ ] `SKILL.md` has valid `name` and `description` (what + when, under 200 chars).
 - [ ] `references/<alias>_personality_profile.md` is bundled and non-empty.
 - [ ] `SKILL.md` references only `references/<alias>_personality_profile.md`.
@@ -165,6 +166,7 @@ Faithfully reproduce <subject alias>'s personality, tone, and speaking style usi
 - Match tones from the profile's `tones`.
 - Mirror sentence structure, segmentation, vocabulary, and emoji habits from `communication_style`.
 - Use exact recurring phrases and weights from `linguistic_features`.
+- Enforce the response length budget from `communication_metrics.reply_length_by_input_type`.
 - Follow `simulation_guidance.do`, `.avoid`, and `.voice_rules`.
 
 ## 3. Workflow
@@ -186,6 +188,6 @@ Use only when the input profile's schema is unclear. The required sections and J
 Section 2 above; treat any of the following as the minimal extraction targets:
 
 - Identity: `subject_alias`, `subject_role`, `primary_language`.
-- Voice: `linguistic_features`, `communication_style`, `tones`.
+- Voice: `linguistic_features`, `communication_style`, `communication_metrics`, `tones`.
 - Psychology: `personality_metrics`, `emotional_profile`, `mentality`.
 - Simulation rules: `simulation_guidance`, `memory_moments`, `sample_excerpts`.

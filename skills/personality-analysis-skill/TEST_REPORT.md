@@ -6,14 +6,14 @@
 
 | Check | Finding |
 |-------|---------|
-| Skill location | `d:\Program\ex-skill\personality_analysis_skill\` (repo root), not `.trae/skills/` |
+| Skill location | `d:\Program\ex-skill\personality_analysis_skill\` (repo root), not `skills/` |
 | Directory vs. name | Folder `personality_analysis_skill` vs. frontmatter `name: "personality-analysis"` — mismatch |
 | Registration | Not present in the available-skills list; not discoverable by the skill loader |
 | Resource resolution | Relative paths to `templates/…` and `references/…` assumed an external working directory |
 
 ## 2. Refactor summary
 
-- Created the canonical skill directory `.trae/skills/personality-analysis-skill/`.
+- Created the canonical skill directory `skills/personality-analysis-skill/`.
 - Renamed the skill to `personality-analysis-skill` (kebab-case, matching the `imitation-skill` convention).
 - Rewrote the frontmatter `description` to include what the skill does and when to invoke it, at 195 chars (< 200).
 - Bundled the two required resources inside the skill directory:
@@ -28,7 +28,7 @@
 
 | Precondition (before) | Status after refactor |
 |-----------------------|-----------------------|
-| Must exist in a specific external folder (repo root, not `.trae/skills/`) | Removed — now lives in `.trae/skills/personality-analysis-skill/` |
+| Must exist in a specific external folder (repo root, not `skills/`) | Removed — now lives in `skills/personality-analysis-skill/` |
 | Invocation working directory must resolve `templates/` and `references/` | Removed — paths resolve relative to the skill root |
 | Skill name/folder mismatch | Removed — `name: "personality-analysis-skill"` matches the kebab-case directory |
 | Depends on external prompt file (`skill_prompts/…`) | Removed — no references to it |
@@ -45,7 +45,7 @@
 
 ### 5.1 Structural validation — PASS
 
-- Directory `.trae/skills/personality-analysis-skill/` exists with `SKILL.md`, `references/`, `templates/`.
+- Directory `skills/personality-analysis-skill/` exists with `SKILL.md`, `references/`, `templates/`.
 - Frontmatter present:
   - `name: "personality-analysis-skill"`
   - `description` length = 195 chars (validated with Python; < 200).
@@ -66,8 +66,7 @@ Python validation of `templates/personality_profile.template.md`:
 
 ### 5.4 End-to-end output conformance — PASS
 
-Validated the existing completed profile `imitation_skill/references/joanna_personality_profile.md`
-(produced by this skill's workflow) against the refactored template:
+Validated a sample completed profile (produced by this skill's workflow) against the refactored template:
 
 - 16/16 required Markdown sections present (headings 1–16).
 - YAML frontmatter valid, all required keys present.
