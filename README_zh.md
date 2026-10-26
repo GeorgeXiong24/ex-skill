@@ -31,8 +31,8 @@ imitation skill  ──►  以该对象的口吻生成的消息
 |-------|---------|-------|--------|
 | `personality-analysis-skill` | 深度分析前任的个性、情绪、心理和说话方式 | 聊天记录、`.txt`/`.pdf`/`.docx`、图片、聊天导出 | 一份 `<subject>_personality_profile.md` |
 | `imitation-skill-generator` | 将个性画像转化为可用的模仿技能 | 一份个性画像 `.md` | `imitation-<alias>/` 技能目录 |
-| `imitation-skill` | 针对演示对象预构建的模仿技能 | 一段对话提示 | 以该对象口吻生成的消息 |
-| `imitation-<alias>` | 生成器基于示例画像生成的演示产物 | 一段对话提示 | 以该对象口吻生成的消息 |
+
+使用生成器时会在本地生成 `skills/imitation-<alias>/`；生成的画像和技能不包含在本仓库中。
 
 ### personality-analysis-skill
 
@@ -53,20 +53,17 @@ imitation skill  ──►  以该对象的口吻生成的消息
 
 ```
 ex-skill/
-├── skills/                            # 已注册的技能
+├── skills/                            # 仓库内置技能
 │   ├── personality-analysis-skill/
 │   ├── imitation-skill-generator/
-│   ├── imitation-skill/
-│   └── imitation-<alias>/
-├── evidence_list/                     # 原始隐私证据（仅本地）
-├── personality_analysis_skill/        # 分析技能的编写副本
-├── imitation_skill/                   # 模仿技能的编写副本
-└── skill_prompts/                     # 原始的提示词请求
+├── README.md / README_zh.md
+└── qq-plugin.md / qq-plugin_zh.md
 ```
 
 每个已注册的技能都包含一个 `SKILL.md`（frontmatter + 指令），以及它所需的任何捆绑资源
 （`references/`、`templates/`）。这些技能都是自包含的：它们自带 schema、评分标准和模板，
-不依赖网络、数据库或自身目录之外的任何文件。
+作为技能资源不需要网络、数据库或自身目录之外的文件。模型推理由宿主 agent 运行环境处理，并可能使用其配置的服务商。
+生成的画像、原始证据和 `imitation-<alias>/` 产物属于用户数据，不包含在仓库内置技能目录中。
 
 ## 如何构建 / 安装
 
@@ -97,13 +94,19 @@ skills/<skill-name>/
 
 ## 隐私与安全
 
-- 分析与生成全程在本地进行。任何画像或生成的技能都不会被上传或发布。
-- 原始证据（`evidence_list/`）以及任何包含真实姓名或聊天引用的画像都属于隐私内容，
-  不应提交到公开仓库。
+- 技能本身不包含发布或上传画像/生成技能的代码，生成文件会写入工作区；但 AI 运行环境可能会将提示词和你提供的材料
+  发送给其配置的模型服务商。若材料不能离开本机，请检查运行环境及服务商的数据处理条款，并使用符合要求的本地模型。
+- 原始证据以及任何包含真实姓名或聊天引用的画像都属于隐私内容，不应提交到公开仓库。
 - 通用技能（`personality-analysis-skill`、`imitation-skill-generator`）不包含任何个人数据，可以安全共享。
 - 请负责任地、仅在征得同意的前提下使用模仿技能；将心理层面的发现视为假设，而非诊断。
 
 ## 校验
 
-每个技能都包含一个 `TEST_REPORT.md`，用于记录结构检查、schema 有效性、自包含性和隐私检查。
-修改任何技能后，请重新运行这些检查，以确认它仍能独立加载和运行。
+仓库内置的技能目录包含 `TEST_REPORT.md`，用于记录结构检查、schema 有效性、自包含性和隐私检查。
+修改内置技能后，请重新运行这些检查，以确认它仍能独立加载和运行。
+
+## QQ 接入指南
+
+将生成的 imitation skill 与 SnowLuma、qq-bridge 和 DeepSeek Harness 集成的完整操作流程，见 [QQ Plugin 接入说明](qq-plugin_zh.md)。
+
+若希望集合所有前置程序直接开始运行主程序，见 [一键启动.bat文件](onekey-startup_zh.md)

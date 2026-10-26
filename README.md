@@ -1,6 +1,6 @@
 # ex-skill
 
-> 语言 / Language：[中文版](README.zh.md)
+> 语言 / Language：[中文版](README_zh.md)
 
 A self-contained suite of AI skills that analyzes a user's past relationship evidence and produces an
 imitation companion that reproduces the ex-partner's personality, tone, and speaking style.
@@ -35,8 +35,9 @@ imitation skill  ──►  messages in the subject's voice
 |-------|---------|-------|--------|
 | `personality-analysis-skill` | Deep analysis of a former partner's personality, emotions, mentality, and speech | Chat logs, `.txt`/`.pdf`/`.docx`, images, chat exports | A single `<subject>_personality_profile.md` |
 | `imitation-skill-generator` | Turns a personality profile into a working imitation skill | A personality profile `.md` | `imitation-<alias>/` skill directory |
-| `imitation-skill` | Pre-built imitation skill for a demo subject | A conversation prompt | Messages in the subject's voice |
-| `imitation-<alias>` | Generated demo output produced by the generator from a sample profile | A conversation prompt | Messages in the subject's voice |
+
+The generator creates `skills/imitation-<alias>/` as a local output when you use it; generated profiles and skills are
+not included in this repository.
 
 ### personality-analysis-skill
 
@@ -58,20 +59,18 @@ imitation skill  ──►  messages in the subject's voice
 
 ```
 ex-skill/
-├── skills/                            # registered skills
+├── skills/                            # bundled skills
 │   ├── personality-analysis-skill/
 │   ├── imitation-skill-generator/
-│   ├── imitation-skill/
-│   └── imitation-<alias>/
-├── evidence_list/                     # raw private evidence (local only)
-├── personality_analysis_skill/        # authoring copy of the analysis skill
-├── imitation_skill/                   # authoring copy of the imitation skill
-└── skill_prompts/                     # original prompt requests
+├── README.md / README_zh.md
+└── qq-plugin.md / qq-plugin_zh.md
 ```
 
 Each registered skill contains a `SKILL.md` (frontmatter + instructions) plus any bundled resources it
 needs (`references/`, `templates/`). Skills are self-contained: they carry their own schemas, rubrics, and
-templates, and do not depend on network access, databases, or files outside their own directory.
+templates, and do not require network access, databases, or files outside their own directories as skill resources.
+Model inference is handled by the host agent runtime and may use its configured provider. Generated profiles, source
+evidence, and `imitation-<alias>/` outputs are user data and are not included in the bundled skill directories.
 
 ## How to build / set up
 
@@ -104,9 +103,12 @@ skills/<skill-name>/
 
 ## Privacy & security
 
-- The analysis and generation run entirely locally. No profile or generated skill is uploaded or published.
-- Raw evidence (`evidence_list/`) and any profile containing real names or chat quotes are private and
-  should not be committed to a public repository.
+- The skills do not include code that publishes or uploads profiles or generated skills. Files are written to the
+  workspace, but the AI runtime may send prompts and supplied materials to its configured model provider. Check the
+  provider's data-handling terms and your runtime configuration; use an appropriately local model if the materials must
+  not leave your device.
+- Source evidence and any profile containing real names or chat quotes are private and should not be committed
+  to a public repository.
 - The generic skills (`personality-analysis-skill`, `imitation-skill-generator`) contain no personal data
   and are safe to share.
 - Use the imitation skills responsibly and only with consent; treat psychological findings as hypotheses,
@@ -114,6 +116,13 @@ skills/<skill-name>/
 
 ## Validation
 
-Each skill includes a `TEST_REPORT.md` documenting structural checks, schema validity, self-containment,
-and privacy checks. Re-run these checks after modifying any skill to confirm it still loads and runs
-standalone.
+The bundled skill directories include a `TEST_REPORT.md` documenting structural checks, schema validity,
+self-containment, and privacy checks. Re-run these checks after modifying a bundled skill to confirm it
+still loads and runs standalone.
+
+## QQ integration guide
+
+For the complete workflow to connect a generated imitation skill to QQ with SnowLuma, qq-bridge, and DeepSeek
+Harness, see the [QQ plugin integration guide](qq-plugin.md).
+
+If looking to run and prepare for all the pre-programs for the main program, see the [onekey startup .bat file](onekey-startup.md)
