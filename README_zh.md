@@ -107,5 +107,6 @@ skills/<skill-name>/
 
 ## QQ 接入指南
 
-将生成的 imitation skill 与 SnowLuma、qq-bridge 和 DeepSeek Harness 集成的完整操作流程，见
-[QQ Plugin 接入说明](qq-plugin_zh.md)。
+将生成的 imitation skill 与 SnowLuma、qq-bridge 和 DeepSeek Harness 集成的完整操作流程，见 [QQ Plugin 接入说明](qq-plugin_zh.md)。
+
+若希望集合所有前置程序直接开始运行主程序，见 [一键启动.bat文件](onekey-startup_zh.md)

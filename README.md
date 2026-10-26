@@ -124,3 +124,5 @@ still loads and runs standalone.
 
 For the complete workflow to connect a generated imitation skill to QQ with SnowLuma, qq-bridge, and DeepSeek
 Harness, see the [QQ plugin integration guide](qq-plugin.md).
+
+If looking to run and prepare for all the pre-programs for the main program, see the [onekey startup .bat file](onekey-startup.md)
