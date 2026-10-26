@@ -1,6 +1,6 @@
 # ex-skill
 
-> 语言 / Language：[中文版](README.zh.md)
+> 语言 / Language：[中文版](README_zh.md)
 
 A self-contained suite of AI skills that analyzes a user's past relationship evidence and produces an
 imitation companion that reproduces the ex-partner's personality, tone, and speaking style.
