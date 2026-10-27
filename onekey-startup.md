@@ -1,4 +1,4 @@
-# English version
+# QQ agent One-key Startup
 
 > 语言 / Language：[中文](onekey-startup_zh.md)
 

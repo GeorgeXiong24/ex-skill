@@ -1,5 +1,7 @@
 # 将 imitation skill 接入 QQ
 
+> 语言 / Language：[English](qq-plugin.md)
+
 本文说明如何把本仓库生成的 imitation skill 与 [qq-bridge](https://github.com/Derpyu520/qq-bridge)、
 [SnowLuma](https://github.com/SnowLuma/SnowLuma) 和 DeepSeek Harness（DSH）配合使用，让 QQ 上的
 消息由 DSH 按指定人格回复。
